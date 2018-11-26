@@ -32,14 +32,8 @@ def find_dotm(path_to_search, text_to_search):
                         text_location = line.find(text_to_search)
                         if text_location >= 0:
                             files_matched += 1
-                            if text_location - 40 >= 0:
-                                left_location = text_location - 40
-                            else:
-                                left_location = 0
-                            if text_location + 41 <= len(line):
-                                right_location = text_location + 41
-                            else:
-                                right_location = len(line)
+                            left_location = max(0, text_location-40)
+                            right_location = min(text_location + 41, len(line))
                             print('Match found in file {}'.format(full_path))
                             print('...' + line[left_location:right_location] + '...')
     print('Files searched: {}'.format(files_searched))
